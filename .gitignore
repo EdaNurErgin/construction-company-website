@@ -1,0 +1,34 @@
+# Veritabani sifrelerini iceren dosya
+/app/Config/config.php
+
+
+# Veritabani sifreleri ve ozel ayarlar
+/app/Config/config.php
+.env
+.env.*
+
+# Ornek ayar dosyalari GitHub'a gidebilir
+!.env.example
+
+# IDE ve editor dosyalari
+.vscode/
+.idea/
+
+# Isletim sistemi dosyalari
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Log ve gecici dosyalar
+*.log
+*.tmp
+*.temp
+*.cache
+
+# Yerel yedekler
+*.bak
+*.backup
+
+# Bagimlilik klasorleri (ileride olusursa)
+vendor/
+node_modules/
