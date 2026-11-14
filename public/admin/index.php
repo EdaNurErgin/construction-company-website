@@ -44,6 +44,13 @@ header('Cache-Control: no-store, private');
         <a href="/admin/services.php">Hizmetleri Yönet</a>
     </p>
 
+    <p>
+        <a href="/admin/messages.php">
+            Gelen Mesajları Görüntüle
+        </a>
+    </p>
+
+
     <!-- Admin cikis formu -->
     <form action="/admin/logout.php" method="POST">
 
