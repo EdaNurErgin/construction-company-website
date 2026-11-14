@@ -2,24 +2,22 @@
 <?php
 /** @var array $services */
 /** @var string $csrfToken */
+/** @var int $page */
+/** @var int $totalPages */
+/** @var int $totalServices */
+
+$pageTitle = 'Hizmet Yönetimi | Yapı ve Dekorasyon';
+$showAdminNavigation = true;
+
+// Ortak admin Header
+require __DIR__ . '/partials/header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hizmet Yönetimi</title>
-</head>
-<body>
+<main>
 
-    <h1>Hizmet Yönetimi</h1>
+    <h3>Hizmet Yönetimi</h3>
 
-    <p>
-        <a href="/admin/index.php">
-            Yönetim Paneline Dön
-        </a>
-    </p>
+
 
     <!-- Yeni hizmet ekleme -->
     <p>
@@ -118,6 +116,70 @@
         </table>
 
     <?php endif; ?>
+    <p></p>
 
-</body>
-</html>
+
+    <!-- Pagination -->
+    <?php if ($totalPages > 1): ?>
+
+        <nav aria-label="Hizmet sayfalama">
+
+            <!-- Onceki sayfa -->
+            <?php if ($page > 1): ?>
+
+                <a href="/admin/services.php?page=<?= $page - 1 ?>">
+                    &laquo; Önceki
+                </a>
+
+            <?php endif; ?>
+
+
+            <!-- Sayfa numaralari -->
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+
+                <?php if ($i === $page): ?>
+
+                    <strong aria-current="page">
+                        <?= $i ?>
+                    </strong>
+
+                <?php else: ?>
+
+                    <a href="/admin/services.php?page=<?= $i ?>">
+                        <?= $i ?>
+                    </a>
+
+                <?php endif; ?>
+
+            <?php endfor; ?>
+
+
+            <!-- Sonraki sayfa -->
+            <?php if ($page < $totalPages): ?>
+
+                <a href="/admin/services.php?page=<?= $page + 1 ?>">
+                    Sonraki &raquo;
+                </a>
+
+            <?php endif; ?>
+
+        </nav>
+
+    <?php endif; ?>
+
+    <p>
+        Toplam Hizmet Sayısı:
+        <strong><?= (int) $totalServices ?></strong>
+    </p>
+    <!-- Sayfa bilgisi
+    <p>
+        Sayfa <?= (int) $page ?>
+        / <?= (int) $totalPages ?>
+    </p> -->
+
+</main>
+
+<?php
+// Ortak admin Footer
+require __DIR__ . '/partials/footer.php';
+?>

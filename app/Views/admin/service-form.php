@@ -1,4 +1,3 @@
-
 <?php
 
 /** @var string $csrfToken */
@@ -21,21 +20,22 @@ $formAction = $isEdit
 
 ?>
 
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>
-        <?= $isEdit ? 'Hizmet Düzenle' : 'Yeni Hizmet Ekle' ?>
-    </title>
-</head>
-<body>
+<?php
+// Sayfanin tarayici basligi
+$pageTitle = 'Hizmet Formu | Yapı ve Dekorasyon';
 
-    <h1>
+// Yonetim menusunu goster
+$showAdminNavigation = true;
+
+// Ortak admin Header
+require __DIR__ . '/partials/header.php';
+?>
+
+
+    <h3>
         <?= $isEdit ? 'Hizmet Düzenle' : 'Yeni Hizmet Ekle' ?>
-    </h1>
+    </h3>
 
     <p>
         <a href="/admin/services.php">Hizmetlere Dön</a>
@@ -91,5 +91,9 @@ $formAction = $isEdit
 
     </form>
 
-</body>
-</html>
+
+<?php
+// Ortak admin Footer
+require __DIR__ . '/partials/footer.php';
+?>
+

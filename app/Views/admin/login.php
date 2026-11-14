@@ -3,16 +3,20 @@
 /** @var string|null $error */
 ?>
 
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yönetici Girişi</title>
-</head>
-<body>
 
-    <h1>Yönetici Girişi</h1>
+<?php
+// Tarayici sekmesindeki sayfa basligi
+$pageTitle = 'Yönetici Girişi | Yapı ve Dekorasyon';
+
+// Giris ekraninda admin menusunu gosterme
+$showAdminNavigation = false;
+
+// Ortak admin Header dosyasini ekle
+require __DIR__ . '/partials/header.php';
+?>
+
+
+    <h2>Yönetici Girişi</h2>
 
     <?php if (!empty($error)): ?>
         <p role="alert">
@@ -55,5 +59,8 @@
 
     </form>
 
-</body>
-</html>
+
+<?php
+// Ortak admin Footer dosyasini ekle
+require __DIR__ . '/partials/footer.php';
+?>
