@@ -22,47 +22,33 @@ header('Cache-Control: no-store, private');
 
 ?>
 
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yönetim Paneli</title>
-</head>
-<body>
 
-    <h1>Yönetim Paneli</h1>
+<?php
+// Sayfanin basligi
+$pageTitle = 'Yönetim Paneli | Yapı ve Dekorasyon';
 
+// Admin menusunu goster
+$showAdminNavigation = true;
+
+// Ortak Admin Header
+require __DIR__ . '/../../app/Views/admin/partials/header.php';
+?>
+
+
+    
+<main>
     <p>
         Hoş geldiniz,
         <?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8') ?>!
     </p>
 
-    <h2>Yönetim İşlemleri</h2>
-
-    <p>
-        <a href="/admin/services.php">Hizmetleri Yönet</a>
-    </p>
-
-    <p>
-        <a href="/admin/messages.php">
-            Gelen Mesajları Görüntüle
-        </a>
-    </p>
 
 
-    <!-- Admin cikis formu -->
-    <form action="/admin/logout.php" method="POST">
 
-        <input
-            type="hidden"
-            name="csrf_token"
-            value="<?= htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8') ?>"
-        >
 
-        <button type="submit">Çıkış Yap</button>
 
-    </form>
-
-</body>
-</html>
+</main>
+<?php
+// Ortak Admin Footer
+require __DIR__ . '/../../app/Views/admin/partials/footer.php';
+?>

@@ -7,22 +7,26 @@
 /** @var string $deleteCsrfToken */
 ?>
 
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gelen Mesajlar | Yönetim Paneli</title>
-</head>
-<body>
 
-    <h1>Gelen Mesajlar</h1>
+<?php
+// Sayfanin tarayici basligi
+$pageTitle = 'Gelen Mesajlar | Yapı ve Dekorasyon';
 
-    <p>
+// Yonetim menusunu goster
+$showAdminNavigation = true;
+
+// Ortak admin Header
+require __DIR__ . '/partials/header.php';
+?>
+
+
+    <h3>Gelen Mesajlar</h3>
+
+    <!-- <p>
         <a href="/admin/index.php">
             Yönetim Paneline Dön
         </a>
-    </p>
+    </p> -->
 
     <?php if (empty($messages)): ?>
 
@@ -125,11 +129,8 @@
 
     <!-- PAGINATION -->
 
-    <p>
-        Toplam <?= (int) $totalMessages ?> mesaj |
-        Sayfa <?= (int) $page ?> / <?= (int) $totalPages ?>
-    </p>
 
+    <p></p>
     <?php if ($totalPages > 1): ?>
 
         <nav aria-label="Mesaj sayfalama">
@@ -171,5 +172,13 @@
 
     <?php endif; ?>
 
-</body>
-</html>
+    <p>
+        Toplam <strong><?= (int) $totalMessages ?></strong> mesaj 
+        
+    </p>
+
+
+<?php
+// Ortak admin Footer
+require __DIR__ . '/partials/footer.php';
+?>

@@ -10,15 +10,16 @@ $message = $message ?? '';
 
 ?>
 
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İletişim | Yapı ve Dekorasyon</title>
-</head>
-<body>
 
+<?php
+// Sayfanin basligi
+$pageTitle = 'İletişim | Yapı ve Dekorasyon';
+
+// Ortak Header
+require __DIR__ . '/../partials/header.php';
+?>
+
+<main>
     <h1>İletişim</h1>
 
     <p>
@@ -104,5 +105,9 @@ $message = $message ?? '';
 
     </form>
 
-</body>
-</html>
+</main>
+<?php
+// Ortak Footer
+require __DIR__ . '/../partials/footer.php';
+?>
+
