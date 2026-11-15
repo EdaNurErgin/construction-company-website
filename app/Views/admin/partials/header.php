@@ -66,6 +66,8 @@ $showAdminNavigation = $showAdminNavigation ?? false;
 
                 <a href="/admin/messages.php" class="admin-nav__link">Gelen Mesajlar</a>
 
+                <a href="/admin/register.php" class="admin-nav__link">Yönetici Ekle</a>
+
                 <a href="/" class="admin-nav__link">Siteye Dön</a>
 
                 <!-- Guvenli cikis formu -->

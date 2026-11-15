@@ -28,4 +28,20 @@ class AdminRepository
 
         return $admin ?: null;
     }
+
+    // Yeni admin ekle (sifre hashlenmis olarak gelmeli)
+    public function create(string $username, string $passwordHash): int
+    {
+        $sql = "INSERT INTO admins (username, password_hash)
+                VALUES (:username, :password_hash)";
+
+        $stmt = $this->pdo->prepare($sql);
+
+        $stmt->execute([
+            'username' => $username,
+            'password_hash' => $passwordHash
+        ]);
+
+        return (int) $this->pdo->lastInsertId();
+    }
 }

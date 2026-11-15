@@ -1,6 +1,7 @@
 <?php
 /** @var string $csrfToken */
 /** @var string|null $error */
+/** @var string|null $success */
 ?>
 
 
@@ -24,6 +25,12 @@ require __DIR__ . '/partials/header.php';
         <p class="auth-card__text">
             Devam etmek için yönetici bilgilerinizle giriş yapın.
         </p>
+
+        <?php if (!empty($success)): ?>
+            <p class="alert alert--success" role="status">
+                <?= e($success) ?>
+            </p>
+        <?php endif; ?>
 
         <?php if (!empty($error)): ?>
             <p class="alert alert--error" role="alert">
@@ -67,6 +74,11 @@ require __DIR__ . '/partials/header.php';
             <button type="submit" class="btn btn--primary btn--block">Giriş Yap</button>
 
         </form>
+
+        <p class="auth-card__footer">
+            Hesabınız yok mu?
+            <a href="/admin/register.php">Kayıt olun</a>
+        </p>
 
     </div>
 

@@ -11,6 +11,10 @@ if (Auth::check()) {
 $csrfToken = csrf_token();
 $error = null;
 
+// Kayit sonrasi gosterilecek basari mesaji
+$success = $_SESSION['register_success'] ?? null;
+unset($_SESSION['register_success']);
+
 // Form gonderildiyse
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 

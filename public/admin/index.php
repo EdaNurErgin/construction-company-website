@@ -52,6 +52,12 @@ require __DIR__ . '/../../app/Views/admin/partials/header.php';
                 <span class="link-card__text">İletişim formundan gelen mesajları görüntüleyin.</span>
                 <span class="link-card__cta">Mesajlara git &rarr;</span>
             </a>
+
+            <a href="/admin/register.php" class="panel link-card">
+                <span class="link-card__title">Yönetici Ekle</span>
+                <span class="link-card__text">Panele erişebilecek yeni bir yönetici hesabı oluşturun.</span>
+                <span class="link-card__cta">Yönetici ekle &rarr;</span>
+            </a>
         </div>
 
     </div>
