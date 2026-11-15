@@ -1,4 +1,3 @@
-
 <?php
 
 $pageTitle = $pageTitle ?? 'Yönetim Paneli | Yapı ve Dekorasyon';

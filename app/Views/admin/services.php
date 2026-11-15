@@ -1,4 +1,3 @@
-
 <?php
 /** @var array $services */
 /** @var string $csrfToken */

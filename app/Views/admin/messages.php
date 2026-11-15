@@ -1,4 +1,3 @@
-
 <?php
 /** @var array $messages */
 /** @var int $totalMessages */
