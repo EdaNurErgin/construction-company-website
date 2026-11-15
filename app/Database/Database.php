@@ -3,8 +3,16 @@
 
 class Database
 {
+    // Istek boyunca paylasilan tek PDO baglantisi
+    private static ?PDO $pdo = null;
+
     public static function connect(): PDO
     {
+        // Baglanti daha once kurulduysa onu kullan
+        if (self::$pdo !== null) {
+            return self::$pdo;
+        }
+
         // Veritabani ayarlarini oku
         $config = require __DIR__ . '/../Config/config.php';
 
@@ -12,7 +20,7 @@ class Database
         $dsn = "mysql:host={$config['host']};port={$config['port']};dbname={$config['dbname']};charset={$config['charset']}";
 
         // PDO baglantisini olustur
-        $pdo = new PDO(
+        self::$pdo = new PDO(
             $dsn,
             $config['username'],
             $config['password'],
@@ -23,6 +31,6 @@ class Database
             ]
         );
 
-        return $pdo;
+        return self::$pdo;
     }
 }
