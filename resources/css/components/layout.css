@@ -1,0 +1,200 @@
+/* Sayfa iskeleti, bolumler ve bos durumlar */
+@layer components {
+    .layout-container {
+        @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+    }
+
+    .skip-link {
+        @apply sr-only rounded-md bg-ink px-4 py-2 text-sm font-medium text-paper focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50;
+    }
+
+    .section {
+        @apply py-16 md:py-24;
+    }
+
+    .section--muted {
+        @apply border-y border-line bg-white;
+    }
+
+    .section-heading {
+        @apply mb-10 max-w-2xl;
+    }
+
+    .section-heading__title {
+        @apply text-3xl md:text-4xl;
+    }
+
+    .section-heading__text {
+        @apply mt-4 text-lg leading-relaxed text-muted;
+    }
+
+    .section-footer {
+        @apply mt-10 flex justify-center;
+    }
+
+    .eyebrow {
+        @apply mb-3 inline-flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-accent uppercase;
+    }
+
+    .eyebrow::before {
+        @apply h-px w-8 bg-current;
+        content: "";
+    }
+
+    /* Anasayfa hero alani: blueprint izgara deseni */
+    .hero {
+        @apply relative overflow-hidden bg-ink text-paper;
+        background-image:
+            linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+            linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+        background-size: 2.5rem 2.5rem;
+    }
+
+    .hero__inner {
+        @apply grid items-center gap-12 py-20 md:py-28 lg:grid-cols-[1.2fr_1fr];
+    }
+
+    .hero__title {
+        @apply text-4xl leading-tight text-paper sm:text-5xl lg:text-6xl;
+    }
+
+    .hero__text {
+        @apply mt-6 max-w-xl text-lg leading-relaxed text-paper/75;
+    }
+
+    .hero__actions {
+        @apply mt-10 flex flex-col gap-3 sm:flex-row;
+    }
+
+    .blueprint {
+        @apply relative hidden rounded-lg border border-dashed border-paper/25 p-8 sm:block;
+    }
+
+    .blueprint__label {
+        @apply absolute -top-3 left-6 bg-ink px-2 text-xs tracking-[0.2em] text-paper/60 uppercase;
+    }
+
+    .blueprint__list {
+        @apply divide-y divide-paper/15;
+    }
+
+    .blueprint__item {
+        @apply flex items-baseline gap-5 py-5;
+    }
+
+    .blueprint__number {
+        @apply font-display text-sm text-accent-soft/70;
+    }
+
+    .blueprint__title {
+        @apply font-display text-xl text-paper;
+    }
+
+    /* Hakkimizda bolumu */
+    .about {
+        @apply grid gap-12 lg:grid-cols-2;
+    }
+
+    .about__text {
+        @apply space-y-5 text-lg leading-relaxed text-ink-soft;
+    }
+
+    .feature-list {
+        @apply grid gap-4 sm:grid-cols-3 lg:grid-cols-1;
+    }
+
+    .feature {
+        @apply rounded-lg border border-line bg-paper p-5;
+    }
+
+    .feature__title {
+        @apply font-display text-lg;
+    }
+
+    .feature__text {
+        @apply mt-1 text-sm leading-relaxed text-muted;
+    }
+
+    /* Alt sayfa basligi */
+    .page-hero {
+        @apply border-b border-line bg-white py-14 md:py-20;
+    }
+
+    .page-hero__title {
+        @apply text-4xl md:text-5xl;
+    }
+
+    .page-hero__text {
+        @apply mt-4 max-w-2xl text-lg leading-relaxed text-muted;
+    }
+
+    /* Iletisim sayfasi */
+    .contact-layout {
+        @apply grid gap-10 lg:grid-cols-[1fr_2fr];
+    }
+
+    .step-list {
+        @apply mt-6 space-y-5;
+    }
+
+    .empty-state {
+        @apply rounded-lg border border-dashed border-line bg-white px-6 py-12 text-center text-muted;
+    }
+
+    .site-footer {
+        @apply border-t border-line bg-ink py-10 text-sm text-paper/70;
+    }
+
+    .site-footer__inner {
+        @apply flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-6;
+    }
+
+    /* Yonetim paneli iskeleti */
+    .admin-main {
+        @apply py-10 md:py-14;
+    }
+
+    .page-heading {
+        @apply mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between;
+    }
+
+    .page-heading__title {
+        @apply text-3xl;
+    }
+
+    .page-heading__meta {
+        @apply mt-2 text-sm text-muted;
+    }
+
+    .back-link {
+        @apply mb-4 inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-accent;
+    }
+
+    .dashboard-grid {
+        @apply grid gap-6 md:grid-cols-2;
+    }
+
+    .auth-page {
+        @apply flex items-center justify-center px-4 py-16;
+    }
+
+    .auth-card {
+        @apply w-full max-w-md;
+    }
+
+    .auth-card__title {
+        @apply text-2xl;
+    }
+
+    .auth-card__text {
+        @apply mt-2 mb-6 text-sm text-muted;
+    }
+
+    .auth-card__footer {
+        @apply mt-6 text-center text-sm text-muted;
+    }
+
+    .auth-card__footer a {
+        @apply font-medium text-accent underline-offset-4 hover:text-accent-dark hover:underline;
+    }
+}

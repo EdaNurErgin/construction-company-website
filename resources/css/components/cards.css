@@ -1,0 +1,56 @@
+/* Kartlar ve paneller */
+@layer components {
+    .card-grid {
+        @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-3;
+    }
+
+    .card-grid--numbered {
+        counter-reset: service;
+    }
+
+    .service-card {
+        @apply relative flex flex-col rounded-lg border border-line bg-white p-6 transition-shadow hover:shadow-lg hover:shadow-ink/5 sm:p-8;
+    }
+
+    .service-card::before {
+        @apply mb-6 block h-0.5 w-10 bg-accent;
+        content: "";
+    }
+
+    .card-grid--numbered .service-card {
+        counter-increment: service;
+    }
+
+    .card-grid--numbered .service-card::before {
+        @apply h-auto w-auto bg-transparent font-display text-sm font-semibold tracking-wider text-accent;
+        content: counter(service, decimal-leading-zero);
+    }
+
+    .service-card__title {
+        @apply text-xl;
+    }
+
+    .service-card__text {
+        @apply mt-3 leading-relaxed text-muted;
+    }
+
+    .panel {
+        @apply rounded-lg border border-line bg-white p-6 shadow-sm sm:p-8;
+    }
+
+    .link-card {
+        @apply flex flex-col gap-2 transition-colors hover:border-accent;
+    }
+
+    .link-card__title {
+        @apply font-display text-xl font-semibold;
+    }
+
+    .link-card__text {
+        @apply text-sm text-muted;
+    }
+
+    .link-card__cta {
+        @apply mt-4 text-sm font-semibold text-accent;
+    }
+}

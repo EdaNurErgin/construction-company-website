@@ -1,0 +1,67 @@
+/* Public ve admin ust menuleri */
+@layer components {
+    .brand {
+        @apply inline-flex items-center gap-3 font-display text-lg font-semibold;
+    }
+
+    .brand__mark {
+        @apply grid size-10 shrink-0 place-items-center rounded-md bg-accent font-sans text-sm font-semibold tracking-wider text-white;
+    }
+
+    .brand__note {
+        @apply block font-sans text-xs font-medium tracking-wider uppercase opacity-70;
+    }
+
+    .nav-toggle {
+        @apply hidden size-11 items-center justify-center rounded-md border border-current/20 js:inline-flex md:js:hidden;
+    }
+
+    .nav-toggle__icon {
+        @apply size-5;
+    }
+
+    /* Public site menusu */
+    .site-header {
+        @apply sticky top-0 z-30 border-b border-line bg-paper/95 backdrop-blur;
+    }
+
+    .site-header__inner,
+    .admin-header__inner {
+        @apply flex flex-wrap items-center justify-between gap-x-6 gap-y-3 py-3;
+    }
+
+    .site-header .brand {
+        @apply text-ink;
+    }
+
+    .site-nav,
+    .admin-nav {
+        @apply flex w-full flex-col gap-1 pb-3 js:hidden md:w-auto md:flex-row md:items-center md:pb-0 md:js:flex;
+    }
+
+    .site-nav.is-open,
+    .admin-nav.is-open {
+        @apply flex;
+    }
+
+    .site-nav__link {
+        @apply rounded-md px-3 py-2.5 text-sm font-medium text-ink-soft hover:bg-line/60 hover:text-ink;
+    }
+
+    .site-nav__link--cta {
+        @apply mt-2 bg-ink text-center text-paper hover:bg-accent hover:text-white md:mt-0 md:ml-2;
+    }
+
+    /* Yonetim paneli menusu */
+    .admin-header {
+        @apply bg-ink text-paper;
+    }
+
+    .admin-nav__link {
+        @apply w-full cursor-pointer rounded-md px-3 py-2.5 text-left text-sm font-medium text-paper/75 hover:bg-white/10 hover:text-paper md:w-auto;
+    }
+
+    .admin-nav__form {
+        @apply mt-2 border-t border-white/10 pt-2 md:mt-0 md:ml-2 md:border-t-0 md:border-l md:pt-0 md:pl-2;
+    }
+}

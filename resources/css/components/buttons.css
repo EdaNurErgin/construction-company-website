@@ -1,0 +1,38 @@
+/* Butonlar: .btn + bir renk varyanti birlikte kullanilir */
+@layer components {
+    .btn {
+        @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent px-5 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60;
+    }
+
+    .btn--sm {
+        @apply min-h-9 px-3 py-1.5 text-xs;
+    }
+
+    .btn--primary {
+        @apply bg-accent text-white hover:bg-accent-dark;
+    }
+
+    .btn--dark {
+        @apply bg-ink text-paper hover:bg-ink-soft;
+    }
+
+    .btn--outline {
+        @apply border-line bg-white text-ink hover:border-ink;
+    }
+
+    .btn--outline-light {
+        @apply border-paper/30 text-paper hover:border-paper hover:bg-white/5;
+    }
+
+    .btn--danger {
+        @apply border-red-200 bg-white text-red-700 hover:border-red-700 hover:bg-red-700 hover:text-white;
+    }
+
+    .btn--danger-solid {
+        @apply bg-red-700 text-white hover:bg-red-800;
+    }
+
+    .btn--block {
+        @apply w-full;
+    }
+}

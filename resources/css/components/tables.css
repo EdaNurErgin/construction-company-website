@@ -1,0 +1,59 @@
+/*
+ * Veri tablolari.
+ * Mobilde her satir karta donusur; etiketler td[data-label] ile gelir.
+ */
+@layer components {
+    .table-wrapper {
+        @apply overflow-hidden rounded-lg border border-line bg-white shadow-sm;
+    }
+
+    .data-table {
+        @apply w-full text-left text-sm;
+    }
+
+    .data-table thead {
+        @apply hidden md:table-header-group;
+    }
+
+    .data-table th {
+        @apply border-b border-line bg-paper px-4 py-3 text-xs font-semibold tracking-wider text-muted uppercase;
+    }
+
+    .data-table tbody tr {
+        @apply block border-b border-line p-4 last:border-b-0 md:table-row md:p-0 md:hover:bg-paper/60;
+    }
+
+    .data-table td {
+        @apply block py-1.5 text-ink-soft md:table-cell md:px-4 md:py-4 md:align-top;
+    }
+
+    .data-table td::before {
+        @apply mb-0.5 block text-xs font-semibold tracking-wider text-muted uppercase md:hidden;
+        content: attr(data-label);
+    }
+
+    .data-table__id {
+        @apply font-mono text-xs text-muted;
+    }
+
+    .data-table__title {
+        @apply font-semibold text-ink;
+    }
+
+    .data-table__message {
+        @apply leading-relaxed md:max-w-md;
+        overflow-wrap: anywhere;
+    }
+
+    .data-table__date {
+        @apply whitespace-nowrap text-muted;
+    }
+
+    .table-actions {
+        @apply flex flex-wrap gap-2 md:justify-end;
+    }
+
+    .inline-form {
+        @apply inline-flex;
+    }
+}

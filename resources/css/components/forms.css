@@ -1,0 +1,39 @@
+/* Form alanlari */
+@layer components {
+    .form-stack {
+        @apply space-y-5;
+    }
+
+    .form-row {
+        @apply grid gap-5 sm:grid-cols-2;
+    }
+
+    .form-label {
+        @apply mb-2 block text-sm font-semibold text-ink;
+    }
+
+    .form-hint {
+        @apply mt-1.5 text-xs text-muted;
+    }
+
+    .form-control {
+        @apply block min-h-11 w-full rounded-md border border-line bg-white px-4 py-2.5 text-base text-ink transition-colors placeholder:text-muted/70 hover:border-muted focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none;
+    }
+
+    textarea.form-control {
+        @apply min-h-40 resize-y leading-relaxed;
+    }
+
+    .form-actions {
+        @apply flex flex-col-reverse gap-3 pt-2 sm:flex-row sm:justify-end;
+    }
+
+    /* Tek formlu dar sayfa (hizmet ekle/duzenle) */
+    .form-page {
+        @apply max-w-3xl;
+    }
+
+    .form-page__panel {
+        @apply mt-8;
+    }
+}

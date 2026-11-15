@@ -1,0 +1,29 @@
+/* Genel element stilleri */
+@layer base {
+    body {
+        @apply flex min-h-screen flex-col bg-paper font-sans text-ink antialiased;
+    }
+
+    main {
+        @apply flex-1;
+    }
+
+    h1,
+    h2,
+    h3 {
+        @apply font-display font-semibold text-ink;
+        text-wrap: balance;
+    }
+
+    a {
+        @apply transition-colors;
+    }
+
+    :focus-visible {
+        @apply outline-2 outline-offset-2 outline-accent;
+    }
+
+    ::selection {
+        @apply bg-accent-soft text-ink;
+    }
+}

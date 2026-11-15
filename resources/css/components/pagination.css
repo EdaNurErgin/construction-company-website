@@ -1,0 +1,28 @@
+/* Sayfalama */
+@layer components {
+    .pagination {
+        @apply mt-10 flex flex-wrap items-center justify-center gap-2;
+    }
+
+    .pagination a,
+    .pagination strong {
+        @apply inline-flex min-h-10 min-w-10 items-center justify-center rounded-md border px-3 text-sm font-medium;
+    }
+
+    .pagination a {
+        @apply border-line bg-white text-ink-soft hover:border-ink hover:text-ink;
+    }
+
+    .pagination strong {
+        @apply border-ink bg-ink text-paper;
+    }
+
+    /* AJAX ile guncellenen sayfalama alani (pagination.js) */
+    [data-pagination-region] {
+        @apply scroll-mt-24 transition-opacity duration-200 focus:outline-none motion-reduce:transition-none;
+    }
+
+    [data-pagination-region][aria-busy="true"] {
+        @apply pointer-events-none opacity-50;
+    }
+}
