@@ -25,18 +25,36 @@ require __DIR__ . '/../../app/Views/admin/partials/header.php';
 ?>
 
 
-    
-<main>
-    <p>
-        Hoş geldiniz,
-        <?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8') ?>!
-    </p>
+<main id="main-content" class="admin-main">
+    <div class="layout-container">
 
+        <div class="page-heading">
+            <div>
+                <h1 class="page-heading__title">
+                    Hoş geldiniz,
+                    <?= e($username) ?>!
+                </h1>
+                <p class="page-heading__meta">
+                    Hizmetleri ve gelen mesajları buradan yönetebilirsiniz.
+                </p>
+            </div>
+        </div>
 
+        <div class="dashboard-grid">
+            <a href="/admin/services.php" class="panel link-card">
+                <span class="link-card__title">Hizmetler</span>
+                <span class="link-card__text">Hizmet ekleyin, düzenleyin veya silin.</span>
+                <span class="link-card__cta">Hizmetlere git &rarr;</span>
+            </a>
 
+            <a href="/admin/messages.php" class="panel link-card">
+                <span class="link-card__title">Gelen Mesajlar</span>
+                <span class="link-card__text">İletişim formundan gelen mesajları görüntüleyin.</span>
+                <span class="link-card__cta">Mesajlara git &rarr;</span>
+            </a>
+        </div>
 
-
-
+    </div>
 </main>
 <?php
 // Ortak Admin Footer

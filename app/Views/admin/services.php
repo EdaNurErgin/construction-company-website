@@ -13,170 +13,161 @@ $showAdminNavigation = true;
 require __DIR__ . '/partials/header.php';
 ?>
 
-<main>
+<main id="main-content" class="admin-main">
+    <div class="layout-container">
 
-    <h3>Hizmet Yönetimi</h3>
+        <div class="page-heading">
+            <div>
+                <h1 class="page-heading__title">Hizmet Yönetimi</h1>
 
+                <p class="page-heading__meta">
+                    Toplam Hizmet Sayısı:
+                    <strong><?= (int) $totalServices ?></strong>
+                </p>
+            </div>
 
+            <!-- Yeni hizmet ekleme -->
+            <a href="/admin/service-create.php" class="btn btn--primary">
+                + Yeni Hizmet Ekle
+            </a>
+        </div>
 
-    <!-- Yeni hizmet ekleme -->
-    <p>
-        <a href="/admin/service-create.php">
-            + Yeni Hizmet Ekle
-        </a>
-    </p>
+        <!-- Hizmet listesi ve sayfalama -->
+        <div id="admin-service-list" data-pagination-region>
 
-    <?php if (empty($services)): ?>
+            <?php if (empty($services)): ?>
 
-        <p>Henüz eklenmiş bir hizmet bulunmuyor.</p>
+                <p class="empty-state">Henüz eklenmiş bir hizmet bulunmuyor.</p>
 
-    <?php else: ?>
+            <?php else: ?>
 
-        <table border="1" cellpadding="10">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Hizmet Başlığı</th>
-                    <th>Açıklama</th>
-                    <th>Eklenme Tarihi</th>
-                    <th>İşlemler</th>
-                </tr>
-            </thead>
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Hizmet Başlığı</th>
+                                <th scope="col">Açıklama</th>
+                                <th scope="col">Eklenme Tarihi</th>
+                                <th scope="col"><span class="sr-only">İşlemler</span></th>
+                            </tr>
+                        </thead>
 
-            <tbody>
-                <?php foreach ($services as $service): ?>
-                    <tr>
-                        <td>
-                            <?= (int) $service['id'] ?>
-                        </td>
+                        <tbody>
+                            <?php foreach ($services as $service): ?>
+                                <tr>
+                                    <td data-label="ID" class="data-table__id">
+                                        <?= (int) $service['id'] ?>
+                                    </td>
 
-                        <td>
-                            <?= htmlspecialchars(
-                                $service['title'],
-                                ENT_QUOTES,
-                                'UTF-8'
-                            ) ?>
-                        </td>
+                                    <td data-label="Hizmet Başlığı" class="data-table__title">
+                                        <?= e($service['title']) ?>
+                                    </td>
 
-                        <td>
-                            <?= nl2br(htmlspecialchars(
-                                $service['description'],
-                                ENT_QUOTES,
-                                'UTF-8'
-                            )) ?>
-                        </td>
+                                    <td data-label="Açıklama">
+                                        <div class="line-clamp-3">
+                                            <?= nl2br(e($service['description'])) ?>
+                                        </div>
+                                    </td>
 
-                        <td>
-                            <?= htmlspecialchars(
-                                $service['created_at'],
-                                ENT_QUOTES,
-                                'UTF-8'
-                            ) ?>
-                        </td>
+                                    <td data-label="Eklenme Tarihi" class="data-table__date">
+                                        <?= e($service['created_at']) ?>
+                                    </td>
 
-                        <td>
-                            <!-- Hizmet duzenleme -->
-                            <a href="/admin/service-edit.php?id=<?= (int) $service['id'] ?>">
-                                Düzenle
+                                    <td data-label="İşlemler">
+                                        <div class="table-actions">
+                                            <!-- Hizmet duzenleme -->
+                                            <a
+                                                href="/admin/service-edit.php?id=<?= (int) $service['id'] ?>"
+                                                class="btn btn--outline btn--sm"
+                                            >
+                                                Düzenle
+                                            </a>
+
+                                            <!-- Hizmet silme -->
+                                            <form
+                                                action="/admin/service-delete.php"
+                                                method="POST"
+                                                class="inline-form"
+                                                data-confirm="Bu hizmeti silmek istediğinize emin misiniz?"
+                                            >
+
+                                                <input
+                                                    type="hidden"
+                                                    name="id"
+                                                    value="<?= (int) $service['id'] ?>"
+                                                >
+
+                                                <input
+                                                    type="hidden"
+                                                    name="csrf_token"
+                                                    value="<?= e($csrfToken) ?>"
+                                                >
+
+                                                <button type="submit" class="btn btn--danger btn--sm">
+                                                    Sil
+                                                </button>
+
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+            <?php endif; ?>
+
+            <!-- Pagination -->
+            <?php if ($totalPages > 1): ?>
+
+                <nav class="pagination" aria-label="Hizmet sayfalama">
+
+                    <!-- Onceki sayfa -->
+                    <?php if ($page > 1): ?>
+
+                        <a href="/admin/services.php?page=<?= $page - 1 ?>">
+                            &laquo; Önceki
+                        </a>
+
+                    <?php endif; ?>
+
+                    <!-- Sayfa numaralari -->
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+
+                        <?php if ($i === $page): ?>
+
+                            <strong aria-current="page">
+                                <?= $i ?>
+                            </strong>
+
+                        <?php else: ?>
+
+                            <a href="/admin/services.php?page=<?= $i ?>">
+                                <?= $i ?>
                             </a>
 
-                            <!-- Hizmet silme -->
-                            <form
-                                action="/admin/service-delete.php"
-                                method="POST"
-                                style="display: inline;"
-                                onsubmit="return confirm('Bu hizmeti silmek istediğinize emin misiniz?');"
-                            >
+                        <?php endif; ?>
 
-                                <input
-                                    type="hidden"
-                                    name="id"
-                                    value="<?= (int) $service['id'] ?>"
-                                >
+                    <?php endfor; ?>
 
-                                <input
-                                    type="hidden"
-                                    name="csrf_token"
-                                    value="<?= htmlspecialchars(
-                                        $csrfToken,
-                                        ENT_QUOTES,
-                                        'UTF-8'
-                                    ) ?>"
-                                >
+                    <!-- Sonraki sayfa -->
+                    <?php if ($page < $totalPages): ?>
 
-                                <button type="submit">
-                                    Sil
-                                </button>
+                        <a href="/admin/services.php?page=<?= $page + 1 ?>">
+                            Sonraki &raquo;
+                        </a>
 
-                            </form>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                    <?php endif; ?>
 
-    <?php endif; ?>
-    <p></p>
-
-
-    <!-- Pagination -->
-    <?php if ($totalPages > 1): ?>
-
-        <nav aria-label="Hizmet sayfalama">
-
-            <!-- Onceki sayfa -->
-            <?php if ($page > 1): ?>
-
-                <a href="/admin/services.php?page=<?= $page - 1 ?>">
-                    &laquo; Önceki
-                </a>
+                </nav>
 
             <?php endif; ?>
 
+        </div>
 
-            <!-- Sayfa numaralari -->
-            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-
-                <?php if ($i === $page): ?>
-
-                    <strong aria-current="page">
-                        <?= $i ?>
-                    </strong>
-
-                <?php else: ?>
-
-                    <a href="/admin/services.php?page=<?= $i ?>">
-                        <?= $i ?>
-                    </a>
-
-                <?php endif; ?>
-
-            <?php endfor; ?>
-
-
-            <!-- Sonraki sayfa -->
-            <?php if ($page < $totalPages): ?>
-
-                <a href="/admin/services.php?page=<?= $page + 1 ?>">
-                    Sonraki &raquo;
-                </a>
-
-            <?php endif; ?>
-
-        </nav>
-
-    <?php endif; ?>
-
-    <p>
-        Toplam Hizmet Sayısı:
-        <strong><?= (int) $totalServices ?></strong>
-    </p>
-    <!-- Sayfa bilgisi
-    <p>
-        Sayfa <?= (int) $page ?>
-        / <?= (int) $totalPages ?>
-    </p> -->
-
+    </div>
 </main>
 
 <?php

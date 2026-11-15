@@ -19,164 +19,152 @@ $showAdminNavigation = true;
 require __DIR__ . '/partials/header.php';
 ?>
 
+<main id="main-content" class="admin-main">
+    <div class="layout-container">
 
-    <h3>Gelen Mesajlar</h3>
+        <div class="page-heading">
+            <div>
+                <h1 class="page-heading__title">Gelen Mesajlar</h1>
 
-    <!-- <p>
-        <a href="/admin/index.php">
-            Yönetim Paneline Dön
-        </a>
-    </p> -->
+                <p class="page-heading__meta">
+                    Toplam <strong><?= (int) $totalMessages ?></strong> mesaj
+                </p>
+            </div>
+        </div>
 
-    <?php if (empty($messages)): ?>
+        <!-- Mesaj listesi ve sayfalama -->
+        <div id="admin-message-list" data-pagination-region>
 
-        <p>Henüz bu sayfada gösterilecek mesaj bulunmuyor.</p>
+            <?php if (empty($messages)): ?>
 
-    <?php else: ?>
+                <p class="empty-state">Henüz bu sayfada gösterilecek mesaj bulunmuyor.</p>
 
-        <table border="1" cellpadding="10">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Ad</th>
-                    <th>Soyad</th>
-                    <th>Mesaj</th>
-                    <th>Gönderilme Tarihi</th>
-                    <th>İşlem</th>
-                </tr>
-            </thead>
+            <?php else: ?>
 
-            <tbody>
-                <?php foreach ($messages as $message): ?>
-                    <tr>
-                        <td>
-                            <?= (int) $message['id'] ?>
-                        </td>
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Ad</th>
+                                <th scope="col">Soyad</th>
+                                <th scope="col">Mesaj</th>
+                                <th scope="col">Gönderilme Tarihi</th>
+                                <th scope="col"><span class="sr-only">İşlem</span></th>
+                            </tr>
+                        </thead>
 
-                        <td>
-                            <?= htmlspecialchars(
-                                $message['first_name'],
-                                ENT_QUOTES,
-                                'UTF-8'
-                            ) ?>
-                        </td>
+                        <tbody>
+                            <?php foreach ($messages as $message): ?>
+                                <tr>
+                                    <td data-label="ID" class="data-table__id">
+                                        <?= (int) $message['id'] ?>
+                                    </td>
 
-                        <td>
-                            <?= htmlspecialchars(
-                                $message['last_name'],
-                                ENT_QUOTES,
-                                'UTF-8'
-                            ) ?>
-                        </td>
+                                    <td data-label="Ad" class="data-table__title">
+                                        <?= e($message['first_name']) ?>
+                                    </td>
 
-                        <td>
-                            <?= nl2br(htmlspecialchars(
-                                $message['message'],
-                                ENT_QUOTES,
-                                'UTF-8'
-                            )) ?>
-                        </td>
+                                    <td data-label="Soyad" class="data-table__title">
+                                        <?= e($message['last_name']) ?>
+                                    </td>
 
-                        <td>
-                            <?= htmlspecialchars(
-                                $message['created_at'],
-                                ENT_QUOTES,
-                                'UTF-8'
-                            ) ?>
-                        </td>
+                                    <td data-label="Mesaj" class="data-table__message">
+                                        <?= nl2br(e($message['message'])) ?>
+                                    </td>
 
-                        <!-- MESAJ SILME -->
-                        <td>
-                            <form
-                                action="/admin/message-delete.php"
-                                method="POST"
-                                onsubmit="return confirm('Bu mesajı kalıcı olarak silmek istediğinize emin misiniz?');"
-                            >
-                                <input
-                                    type="hidden"
-                                    name="csrf_token"
-                                    value="<?= htmlspecialchars(
-                                        $deleteCsrfToken,
-                                        ENT_QUOTES,
-                                        'UTF-8'
-                                    ) ?>"
-                                >
+                                    <td data-label="Gönderilme Tarihi" class="data-table__date">
+                                        <?= e($message['created_at']) ?>
+                                    </td>
 
-                                <input
-                                    type="hidden"
-                                    name="id"
-                                    value="<?= (int) $message['id'] ?>"
-                                >
+                                    <!-- MESAJ SILME -->
+                                    <td data-label="İşlem">
+                                        <div class="table-actions">
+                                            <form
+                                                action="/admin/message-delete.php"
+                                                method="POST"
+                                                class="inline-form"
+                                                data-confirm="Bu mesajı kalıcı olarak silmek istediğinize emin misiniz?"
+                                            >
+                                                <input
+                                                    type="hidden"
+                                                    name="csrf_token"
+                                                    value="<?= e($deleteCsrfToken) ?>"
+                                                >
 
-                                <input
-                                    type="hidden"
-                                    name="page"
-                                    value="<?= (int) $page ?>"
-                                >
+                                                <input
+                                                    type="hidden"
+                                                    name="id"
+                                                    value="<?= (int) $message['id'] ?>"
+                                                >
 
-                                <button type="submit">
-                                    Sil
-                                </button>
-                            </form>
-                        </td>
+                                                <input
+                                                    type="hidden"
+                                                    name="page"
+                                                    value="<?= (int) $page ?>"
+                                                >
 
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                                                <button type="submit" class="btn btn--danger btn--sm">
+                                                    Sil
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
 
-    <?php endif; ?>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
 
-    <!-- PAGINATION -->
-
-
-    <p></p>
-    <?php if ($totalPages > 1): ?>
-
-        <nav aria-label="Mesaj sayfalama">
-
-            <!-- Onceki sayfa -->
-            <?php if ($page > 1): ?>
-                <a href="/admin/messages.php?page=<?= $page - 1 ?>">
-                    &laquo; Önceki
-                </a>
             <?php endif; ?>
 
-            <!-- Sayfa numaralari -->
-            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+            <!-- PAGINATION -->
+            <?php if ($totalPages > 1): ?>
 
-                <?php if ($i === $page): ?>
+                <nav class="pagination" aria-label="Mesaj sayfalama">
 
-                    <strong aria-current="page">
-                        <?= $i ?>
-                    </strong>
+                    <!-- Onceki sayfa -->
+                    <?php if ($page > 1): ?>
+                        <a href="/admin/messages.php?page=<?= $page - 1 ?>">
+                            &laquo; Önceki
+                        </a>
+                    <?php endif; ?>
 
-                <?php else: ?>
+                    <!-- Sayfa numaralari -->
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
 
-                    <a href="/admin/messages.php?page=<?= $i ?>">
-                        <?= $i ?>
-                    </a>
+                        <?php if ($i === $page): ?>
 
-                <?php endif; ?>
+                            <strong aria-current="page">
+                                <?= $i ?>
+                            </strong>
 
-            <?php endfor; ?>
+                        <?php else: ?>
 
-            <!-- Sonraki sayfa -->
-            <?php if ($page < $totalPages): ?>
-                <a href="/admin/messages.php?page=<?= $page + 1 ?>">
-                    Sonraki &raquo;
-                </a>
+                            <a href="/admin/messages.php?page=<?= $i ?>">
+                                <?= $i ?>
+                            </a>
+
+                        <?php endif; ?>
+
+                    <?php endfor; ?>
+
+                    <!-- Sonraki sayfa -->
+                    <?php if ($page < $totalPages): ?>
+                        <a href="/admin/messages.php?page=<?= $page + 1 ?>">
+                            Sonraki &raquo;
+                        </a>
+                    <?php endif; ?>
+
+                </nav>
+
             <?php endif; ?>
 
-        </nav>
+        </div>
 
-    <?php endif; ?>
-
-    <p>
-        Toplam <strong><?= (int) $totalMessages ?></strong> mesaj 
-        
-    </p>
-
+    </div>
+</main>
 
 <?php
 // Ortak admin Footer
