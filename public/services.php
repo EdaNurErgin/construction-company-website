@@ -1,6 +1,7 @@
 
 <?php
 
+require_once __DIR__ . '/../app/helpers.php';
 require_once __DIR__ . '/../app/Repositories/ServiceRepository.php';
 
 // Repository nesnesini olustur
