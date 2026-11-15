@@ -5,10 +5,7 @@ require_once __DIR__ . '/../../app/Auth/Auth.php';
 require_once __DIR__ . '/../../app/Repositories/MessageRepository.php';
 
 // Sadece giris yapmis admin mesaj silebilir
-if (!Auth::check()) {
-    header('Location: /admin/login.php');
-    exit;
-}
+require_admin();
 
 // Silme islemi yalnizca POST ile yapilabilir
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -17,21 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit('Bu islem yalnizca POST ile yapilabilir.');
 }
 
-// Session kontrolu
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
 // CSRF token dogrulamasi
-$csrfToken = $_POST['csrf_token'] ?? '';
-$sessionToken = $_SESSION['message_delete_csrf_token'] ?? '';
-
-if (
-    !is_string($csrfToken) ||
-    !is_string($sessionToken) ||
-    $sessionToken === '' ||
-    !hash_equals($sessionToken, $csrfToken)
-) {
+if (!verify_csrf('message_delete_csrf_token')) {
     http_response_code(403);
     exit('Gecersiz guvenlik anahtari.');
 }

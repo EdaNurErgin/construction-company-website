@@ -5,31 +5,19 @@ require_once __DIR__ . '/../../app/Auth/Auth.php';
 require_once __DIR__ . '/../../app/Repositories/ServiceRepository.php';
 
 // Sadece giris yapan admin hizmet ekleyebilir
-if (!Auth::check()) {
-    header('Location: /admin/login.php');
-    exit;
-}
+require_admin();
 
 header('Cache-Control: no-store, private');
 
 // CSRF token olustur
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
-
-$csrfToken = $_SESSION['csrf_token'];
+$csrfToken = csrf_token();
 $error = null;
 
 // Form gonderildiyse
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $submittedToken = $_POST['csrf_token'] ?? '';
-
     // CSRF kontrolu
-    if (
-        !is_string($submittedToken) ||
-        !hash_equals($csrfToken, $submittedToken)
-    ) {
+    if (!verify_csrf()) {
         http_response_code(403);
         $error = 'Gecersiz istek. Sayfayi yenileyin.';
 

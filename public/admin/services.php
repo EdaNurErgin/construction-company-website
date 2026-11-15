@@ -4,19 +4,12 @@ require_once __DIR__ . '/../../app/Auth/Auth.php';
 require_once __DIR__ . '/../../app/Repositories/ServiceRepository.php';
 
 // Admin giris kontrolu
-if (!Auth::check()) {
-    header('Location: /admin/login.php');
-    exit;
-}
+require_admin();
 
 header('Cache-Control: no-store, private');
 
 // Silme formu icin CSRF token olustur
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
-
-$csrfToken = $_SESSION['csrf_token'];
+$csrfToken = csrf_token();
 
 // Repository nesnesini olustur
 $serviceRepository = new ServiceRepository();

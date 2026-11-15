@@ -5,24 +5,10 @@ require_once __DIR__ . '/../../app/Auth/Auth.php';
 require_once __DIR__ . '/../../app/Repositories/MessageRepository.php';
 
 // Sadece giris yapan admin mesajlari gorebilir
-if (!Auth::check()) {
-    header('Location: /admin/login.php');
-    exit;
-}
+require_admin();
 
- // Session aktif degilse baslat
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-
-// Mesaj silme islemi icin CSRF token olustur
-if (empty($_SESSION['message_delete_csrf_token'])) {
-    $_SESSION['message_delete_csrf_token'] =
-        bin2hex(random_bytes(32));
-}
-
-// Token'i frontend dosyasina aktar
-$deleteCsrfToken = $_SESSION['message_delete_csrf_token'];
+// Mesaj silme islemi icin CSRF token olustur ve gorunume aktar
+$deleteCsrfToken = csrf_token('message_delete_csrf_token');
 
 // Mesajlarin tarayici onbelleginde tutulmasini engelle
 header('Cache-Control: no-store, private');

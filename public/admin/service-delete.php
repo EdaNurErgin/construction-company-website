@@ -5,10 +5,7 @@ require_once __DIR__ . '/../../app/Auth/Auth.php';
 require_once __DIR__ . '/../../app/Repositories/ServiceRepository.php';
 
 // Sadece giris yapan admin hizmet silebilir
-if (!Auth::check()) {
-    header('Location: /admin/login.php');
-    exit;
-}
+require_admin();
 
 header('Cache-Control: no-store, private');
 
@@ -20,15 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // CSRF token kontrolu
-$csrfToken = $_SESSION['csrf_token'] ?? '';
-$submittedToken = $_POST['csrf_token'] ?? '';
-
-if (
-    !is_string($csrfToken) ||
-    $csrfToken === '' ||
-    !is_string($submittedToken) ||
-    !hash_equals($csrfToken, $submittedToken)
-) {
+if (!verify_csrf()) {
     http_response_code(403);
     exit('Gecersiz istek.');
 }

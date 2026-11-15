@@ -1,28 +1,15 @@
 
 <?php
 
+require_once __DIR__ . '/../helpers.php';
 require_once __DIR__ . '/../Repositories/AdminRepository.php';
 
 class Auth
 {
-    // PHP oturumunu baslat
-    private static function startSession(): void
-    {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start([
-                'cookie_httponly' => true,
-                'cookie_secure' => !empty($_SERVER['HTTPS'])
-                    && $_SERVER['HTTPS'] !== 'off',
-                'cookie_samesite' => 'Lax',
-                'use_strict_mode' => true
-            ]);
-        }
-    }
-
     // Admin girisi
     public static function login(string $username, string $password): bool
     {
-        self::startSession();
+        start_session();
 
         $repository = new AdminRepository();
 
@@ -46,7 +33,7 @@ class Auth
     // Admin giris yapmis mi?
     public static function check(): bool
     {
-        self::startSession();
+        start_session();
 
         return isset($_SESSION['admin_id']);
     }
@@ -55,7 +42,7 @@ class Auth
     // Admin oturumunu sonlandir
     public static function logout(): void
     {
-        self::startSession();
+        start_session();
 
         // Oturum bilgilerini temizle
         $_SESSION = [];

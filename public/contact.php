@@ -1,27 +1,16 @@
 
 <?php
 
+require_once __DIR__ . '/../app/helpers.php';
 require_once __DIR__ . '/../app/Repositories/MessageRepository.php';
 
 // Ziyaretci icin oturum baslat
-if (session_status() === PHP_SESSION_NONE) {
-    session_start([
-        'cookie_httponly' => true,
-        'cookie_secure' => !empty($_SERVER['HTTPS'])
-            && $_SERVER['HTTPS'] !== 'off',
-        'cookie_samesite' => 'Lax',
-        'use_strict_mode' => true
-    ]);
-}
+start_session();
 
 header('Cache-Control: no-store, private');
 
 // CSRF token olustur
-if (empty($_SESSION['contact_csrf_token'])) {
-    $_SESSION['contact_csrf_token'] = bin2hex(random_bytes(32));
-}
-
-$csrfToken = $_SESSION['contact_csrf_token'];
+$csrfToken = csrf_token('contact_csrf_token');
 
 $error = null;
 $success = $_SESSION['contact_success'] ?? null;
@@ -34,13 +23,8 @@ $message = '';
 // Form gonderildiyse
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $submittedToken = $_POST['csrf_token'] ?? '';
-
     // CSRF guvenlik kontrolu
-    if (
-        !is_string($submittedToken) ||
-        !hash_equals($csrfToken, $submittedToken)
-    ) {
+    if (!verify_csrf('contact_csrf_token')) {
         http_response_code(403);
         $error = 'Gecersiz istek. Sayfayi yenileyin.';
 
